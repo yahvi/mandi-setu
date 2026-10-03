@@ -146,7 +146,7 @@ export default function Offers() {
         currency: order.currency,
         order_id: order.orderId,
         name: "Mandi Setu",
-        description: `${offer.crop} \u2014 \u20b9${offer.offerPrice}/quintal`,
+       description: `${offer.crop} — ₹${offer.offerPrice}/quintal`,
         handler: async (response) => {
           try {
             await api.verifyPayment({
@@ -182,9 +182,10 @@ export default function Offers() {
           {offers.map((o) => (
             <div className="offer-card" key={o.id}>
               <div className="offer-card__main">
-                <div className="offer-card__title">
-                  {o.crop} \u00b7 {o.qualityGrade} \u00b7 \u20b9{o.offerPrice.toLocaleString("en-IN")}/quintal
-                </div>
+             <div className="offer-card__title">
+  {o.crop} · {o.qualityGrade} · ₹
+  {o.offerPrice.toLocaleString("en-IN")}/quintal
+</div>
                 <div className="offer-card__meta">
                   {o.direction === "sent" ? "You offered " : "Offer from "}
                   <strong>{o.counterparty.name}</strong>
