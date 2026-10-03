@@ -174,10 +174,12 @@ export default function Offers() {
       <div className="panel-page__header"><h1>Offers &amp; Payments</h1></div>
 
       {loading ? (
-        <div className="home__empty">Loading\u2026</div>
-      ) : offers.length === 0 ? (
-        <div className="home__empty">No offers yet \u2014 make one from the Buyers/Farmers tab.</div>
-      ) : (
+  <div className="home__empty">Loading…</div>
+) : offers.length === 0 ? (
+  <div className="home__empty">
+    No offers yet — make one from the Buyers/Farmers tab.
+  </div>
+) : (
         <div className="offer-list">
           {offers.map((o) => (
             <div className="offer-card" key={o.id}>
