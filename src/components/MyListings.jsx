@@ -10,10 +10,12 @@ export default function MyListings({ user }) {
   const [freeText, setFreeText] = useState("");
   const [parsing, setParsing] = useState(false);
   const [parseInfo, setParseInfo] = useState(null);
+
   const isFarmer = user.role === "farmer";
 
   useEffect(() => {
-    api.myListing()
+    api
+      .myListing()
       .then((rows) => {
         const first = rows[0] || null;
         setListing(first);
@@ -94,7 +96,7 @@ export default function MyListings({ user }) {
                 onChange={(e) => setFreeText(e.target.value)}
                 placeholder={
                   isFarmer
-                    ? "e.g. I have about 40 quintals of onion, looking for 1800 per quintal, ready by 2026-10-15"
+                    ? "e.g. I have about 40 quintals of onion, looking for ₹1800 per quintal, ready by 2026-10-15"
                     : "e.g. Need 50 quintals of onion, can pay up to ₹1820 per quintal, by 2026-10-08"
                 }
               />
@@ -210,3 +212,7 @@ export default function MyListings({ user }) {
   );
 }
 ```
+
+**Important:** this version contains actual `₹` characters, not the literal `\u20b9`.
+
+After replacing it, search GitHub again for **`\u20b9`**. If it returns **0 results**, then we can do the final deployment.
