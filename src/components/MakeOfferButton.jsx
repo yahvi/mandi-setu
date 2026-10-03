@@ -1,26 +1,22 @@
+```jsx
 import React, { useState } from "react";
 import { api } from "../api";
 
 export default function MakeOfferButton({ listingId, suggestedPrice }) {
-  const [open, setOpen] = useState(false);
   const [price, setPrice] = useState(suggestedPrice || "");
-  const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  if (sent) return <span className="offer-sent-tag">Offer sent</span>;
-
-  if (!open) {
-    return (
-      <button className="ghost-btn" onClick={() => setOpen(true)}>Make Offer</button>
-    );
-  }
-
   async function submit() {
-    if (!price) return;
+    if (!price || Number(price) <= 0) {
+      alert("Please enter a valid offer price.");
+      return;
+    }
+
     setBusy(true);
+
     try {
-      await api.makeOffer(listingId, price);
-      setSent(true);
+      await api.makeOffer(listingId, Number(price));
+      alert("Offer sent successfully.");
     } catch (err) {
       alert(err.message);
     } finally {
@@ -29,17 +25,31 @@ export default function MakeOfferButton({ listingId, suggestedPrice }) {
   }
 
   return (
-    <div className="offer-inline">
+    <div className="make-offer">
       <input
         type="number"
         min="0"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
-        placeholder="\u20b9/quintal"
+        placeholder="₹/quintal"
       />
-      <button className="ghost-btn" onClick={submit} disabled={busy}>
-        {busy ? "Sending\u2026" : "Send"}
+
+      <button
+        className="ghost-btn"
+        onClick={submit}
+        disabled={busy}
+      >
+        {busy ? "Sending…" : "Send"}
       </button>
     </div>
   );
 }
+```
+
+This removes both literal escapes:
+
+* `\u20b9` → `₹`
+* `\u2026` → `…`
+
+Now search GitHub for **`\u20b9`** again. If there are more files, send me the results and we'll clear them all before deploying.
+
