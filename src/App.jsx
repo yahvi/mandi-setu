@@ -206,7 +206,10 @@ function AuthForm({ role, mode, setMode, onAuthed, onBack }) {
                 <Field label="Quantity available (quintals)">
                   <input type="number" min="0" value={form.quantity} onChange={update("quantity")} placeholder="e.g. 30" />
                 </Field>
-                <Field label="Expected price (\u20b9 / quintal)">
+                <Field
+  label="Price you're willing to offer (₹ / quintal)"
+  error={errors.price}
+>
                   <input type="number" min="0" value={form.price} onChange={update("price")} placeholder="e.g. 1800" />
                 </Field>
               </div>
@@ -222,13 +225,19 @@ function AuthForm({ role, mode, setMode, onAuthed, onBack }) {
                 </select>
               </Field>
               <div className="field-row">
-                <Field label="Price you're willing to offer (\u20b9 / quintal)" error={errors.price}>
-                  <input type="number" min="0" value={form.price} onChange={update("price")} placeholder="e.g. 1820" />
-                </Field>
-                <Field label="Quantity needed (quintals)">
-                  <input type="number" min="0" value={form.quantityNeeded} onChange={update("quantityNeeded")} placeholder="e.g. 50" />
-                </Field>
-              </div>
+  <Field
+    label="Price you're willing to offer (₹ / quintal)"
+    error={errors.price}
+  >
+    <input
+      type="number"
+      min="0"
+      value={form.price}
+      onChange={update("price")}
+      placeholder="e.g. 1820"
+    />
+  </Field>
+</div>
               <Field label="Needed by">
                 <input type="date" value={form.deadline} onChange={update("deadline")} />
               </Field>
