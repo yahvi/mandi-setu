@@ -186,11 +186,11 @@ export default function Offers() {
   {o.crop} · {o.qualityGrade} · ₹
   {o.offerPrice.toLocaleString("en-IN")}/quintal
 </div>
-                <div className="offer-card__meta">
-                  {o.direction === "sent" ? "You offered " : "Offer from "}
-                  <strong>{o.counterparty.name}</strong>
-                  {o.counterparty.phone && ` \u00b7 ${o.counterparty.phone}`}
-                </div>
+              <div className="offer-card__meta">
+  {o.direction === "sent" ? "You offered " : "Offer from "}
+  <strong>{o.counterparty.name}</strong>
+  {o.counterparty.phone && ` · ${o.counterparty.phone}`}
+</div>  
               </div>
               <div className={`offer-card__status offer-card__status--${o.status}`}>
                 {STATUS_LABEL[o.status]}
